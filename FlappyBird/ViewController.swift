@@ -7,12 +7,25 @@
 //
 
 import UIKit
+import SpriteKit
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // viewをSKViewとして取得
+        let skView = self.view as! SKView
+        
+        // FPS表示　ノード数表示
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        // ビューと同じサイズのSKScene生成
+        let scene = GameScene(size: skView.frame.size)
+        
+        // 遷移
+        skView.presentScene(scene)
     }
 
     override func didReceiveMemoryWarning() {
