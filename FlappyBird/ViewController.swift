@@ -33,6 +33,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    /// ステータスバー隠す
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
+    }
 }
 
