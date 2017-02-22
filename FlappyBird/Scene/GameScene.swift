@@ -25,6 +25,9 @@ class GameScene: SKScene {
     /// - Parameter view: SKView
     override func didMove(to view: SKView) {
         
+        // 重力を設定
+        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -4.0)
+        
         // 背景色を設定
         self.backgroundColor = UIColor(colorLiteralRed: 0.15, green: 0.75, blue: 0.90, alpha: 1)
         
@@ -161,9 +164,17 @@ class GameScene: SKScene {
             under.position = CGPoint(x: 0.0, y: under_wall_y)
             wall.addChild(under)
             
+            // 物理演算を設定
+            under.physicsBody = SKPhysicsBody(rectangleOf: wallTexture.size())
+            under.physicsBody?.isDynamic = false
+            
             // 上側の壁を作成
             let upper = SKSpriteNode(texture: wallTexture)
             upper.position = CGPoint(x: 0.0, y: under_wall_y + wallTexture.size().height + slit_length)
+            
+            // 物理演算を設定
+            upper.physicsBody = SKPhysicsBody(rectangleOf: wallTexture.size())
+            upper.physicsBody?.isDynamic = false
             
             wall.addChild(upper)
             wall.run(wallAnimation)
@@ -203,7 +214,19 @@ class GameScene: SKScene {
         self.bird.run(flap)
         
         // スプライトを追加する
-        addChild(bird)
+        self.addChild(bird)
     }
     
+    /// シーンタップ時に呼ばれる
+    ///
+    /// - Parameters:
+    ///   - touches: タッチインスタンス
+    ///   - event: イベント
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // 鳥の速度をゼロにする
+        self.bird.physicsBody?.velocity = CGVector.zero
+        
+        // 鳥に縦方向の力を与える
+        self.bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15))
+    }
 }
