@@ -17,6 +17,9 @@ class GameScene: SKScene {
     /// 壁の親母体
     private var wallNode: SKNode!
     
+    /// 鳥のスプライト
+    private var bird: SKSpriteNode!
+    
     /// SKView上にシーンが表示された際に呼ばれるメソッド
     ///
     /// - Parameter view: SKView
@@ -67,6 +70,12 @@ class GameScene: SKScene {
             
             // スプライトにアクションを設定する
             sprite.run(repeatScrollGround)
+            
+            // スプライトに物理演算を設定する
+            sprite.physicsBody = SKPhysicsBody(rectangleOf: groundTexture.size())
+            
+            // 衝突の時に動かないように設定する
+            sprite.physicsBody?.isDynamic = false
             
             // スプライトを追加する
             self.scrollNode.addChild(sprite)
@@ -170,4 +179,31 @@ class GameScene: SKScene {
         
         self.wallNode.run(repeatForeverAnimation)
     }
+    
+    /// 鳥スプライト設定
+    private func setupBird() {
+        // 鳥の画像を2種類読み込む
+        let birdTextureA = SKTexture(imageNamed: "bird_a")
+        birdTextureA.filteringMode = SKTextureFilteringMode.linear
+        let birdTextureB = SKTexture(imageNamed: "bird_b")
+        birdTextureB.filteringMode = SKTextureFilteringMode.linear
+        
+        // 2種類のテクスチャを交互に変更するアニメーションを作成
+        let texuresAnimation = SKAction.animate(with: [birdTextureA, birdTextureB], timePerFrame: 0.2)
+        let flap = SKAction.repeatForever(texuresAnimation)
+        
+        // スプライトを作成
+        self.bird = SKSpriteNode(texture: birdTextureA)
+        self.bird.position = CGPoint(x: self.frame.size.width * 0.2, y:self.frame.size.height * 0.7)
+        
+        // 物理演算を設定
+        self.bird.physicsBody = SKPhysicsBody(circleOfRadius: bird.size.height / 2.0)
+        
+        // アニメーションを設定
+        self.bird.run(flap)
+        
+        // スプライトを追加する
+        addChild(bird)
+    }
+    
 }
