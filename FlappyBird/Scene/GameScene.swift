@@ -43,6 +43,7 @@ class GameScene: SKScene {
         self.setupGround()
         self.setupCloud()
         self.setupWall()
+        self.setupBird()
     }
     
     /// 地面スプライトの生成
