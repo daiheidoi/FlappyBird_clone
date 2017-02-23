@@ -60,6 +60,7 @@
 		30CCBF411E5BCA29006FAA4B /* FlappyBird */ = {
 			isa = PBXGroup;
 			children = (
+				30D155AB1E5D7E350071B9BC /* Particle */,
 				30CCBF571E5C475B006FAA4B /* Scene */,
 				30CCBF421E5BCA29006FAA4B /* AppDelegate.swift */,
 				30CCBF441E5BCA29006FAA4B /* ViewController.swift */,
@@ -85,6 +86,13 @@
 				30CCBF5A1E5C47AB006FAA4B /* GameScene.swift */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		30D155AB1E5D7E350071B9BC /* Particle */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Particle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +332,7 @@
 				30CCBF531E5BCA29006FAA4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
